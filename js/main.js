@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const display = new Display();
     let timerId;
     let timerStep;
-    let setEvent = ['mousedown', 'mouseup', 'click'];
+    let setEvent = ['mousedown', 'mouseout', 'click'];
     const startStop = document.querySelector('#js-start-stop');
     let btnBlock = false;
 
@@ -24,8 +24,21 @@ window.addEventListener('DOMContentLoaded', function () {
 
     setEvent.forEach(el => {
         const minuteMinus = document.querySelector('#js-minute-minus');
+        if (el === 'mouseout') {
+            minuteMinus.addEventListener('mouseout', () => {
+                clearInterval(timerId);
+            });
+        }
+        if (el === 'click') {
+            minuteMinus.addEventListener('click', () => {
+                clearInterval(timerId);
+                display.minuteMinus();
+                updateFigure();
+            });
+        }
         if (el === 'mousedown') {
             minuteMinus.addEventListener('mousedown', () => {
+                clearInterval(timerId);
                 timerId = setInterval(() => {
                     if (display.firstMinutes === 0 && display.twoMinutes === 0) {
                         clearInterval(timerId);
@@ -34,23 +47,27 @@ window.addEventListener('DOMContentLoaded', function () {
                     updateFigure();
                 }, 150);
             });
-        } else if (el === 'mouseup') {
-            minuteMinus.addEventListener('mouseup', () => {
-                clearInterval(timerId);
-            });
-        } else if (el === 'click') {
-            minuteMinus.addEventListener('click', () => {
-                display.minuteMinus();
-                updateFigure();
-            });
         }
     });
 
 
     setEvent.forEach(el => {
         const minutePlus = document.querySelector('#js-minute-plus');
+        if (el === 'mouseout') {
+            minutePlus.addEventListener('mouseout', () => {
+                clearInterval(timerId);
+            });
+        }
+        if (el === 'click') {
+            minutePlus.addEventListener('click', () => {
+                clearInterval(timerId);
+                display.minutePlus();
+                updateFigure();
+            });
+        }
         if (el === 'mousedown') {
             minutePlus.addEventListener('mousedown', () => {
+                clearInterval(timerId);
                 timerId = setInterval(() => {
                     if (display.firstMinutes >= 5 && display.twoMinutes >= 9) {
                         clearInterval(timerId);
@@ -59,23 +76,27 @@ window.addEventListener('DOMContentLoaded', function () {
                     updateFigure();
                 }, 150);
             });
-        } else if (el === 'mouseup') {
-            minutePlus.addEventListener('mouseup', () => {
-                clearInterval(timerId);
-            });
-        } else if (el === 'click') {
-            minutePlus.addEventListener('click', () => {
-                display.minutePlus();
-                updateFigure();
-            });
         }
     });
 
 
     setEvent.forEach(el => {
         const secondMinus = document.querySelector('#js-second-minus');
+        if (el === 'mouseout') {
+            secondMinus.addEventListener('mouseout', () => {
+                clearInterval(timerId);
+            });
+        }
+        if (el === 'click') {
+            secondMinus.addEventListener('click', () => {
+                clearInterval(timerId);
+                display.secondsMinus();
+                updateFigure();
+            });
+        }
         if (el === 'mousedown') {
             secondMinus.addEventListener('mousedown', () => {
+                clearInterval(timerId);
                 timerId = setInterval(() => {
                     if (display.firstMinutes <= 0 && display.twoMinutes <= 0 && display.firstSecond <= 0 && display.twoSecond <= 0) {
                         clearInterval(timerId);
@@ -84,23 +105,27 @@ window.addEventListener('DOMContentLoaded', function () {
                     updateFigure();
                 }, 150);
             });
-        } else if (el === 'mouseup') {
-            secondMinus.addEventListener('mouseup', () => {
-                clearInterval(timerId);
-            });
-        } else if (el === 'click') {
-            secondMinus.addEventListener('click', () => {
-                display.secondsMinus();
-                updateFigure();
-            });
         }
     });
 
 
     setEvent.forEach(el => {
         const secondPlus = document.querySelector('#js-second-plus');
+        if (el === 'mouseout') {
+            secondPlus.addEventListener('mouseout', () => {
+                clearInterval(timerId);
+            });
+        }
+        if (el === 'click') {
+            secondPlus.addEventListener('click', () => {
+                clearInterval(timerId);
+                display.secondsPlus();
+                updateFigure();
+            });
+        }
         if (el === 'mousedown') {
             secondPlus.addEventListener('mousedown', () => {
+                clearInterval(timerId);
                 timerId = setInterval(() => {
                     if (this.firstMinutes >= 5 && this.twoMinutes >= 9 && this.firstSecond >= 5 && this.twoSecond >= 9) {
                         clearInterval(timerId);
@@ -109,20 +134,12 @@ window.addEventListener('DOMContentLoaded', function () {
                     updateFigure();
                 }, 150);
             });
-        } else if (el === 'mouseup') {
-            secondPlus.addEventListener('mouseup', () => {
-                clearInterval(timerId);
-            });
-        } else if (el === 'click') {
-            secondPlus.addEventListener('click', () => {
-                display.secondsPlus();
-                updateFigure();
-            });
         }
     });
 
 
     startStop.addEventListener('click', () => {
+        clearInterval(timerId);
         if (btnBlock || (display.firstMinutes <= 0 && display.twoMinutes <= 0 && display.firstSecond <= 0 && display.twoSecond <= 0)) {
             return false;
         }
@@ -157,6 +174,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
     document.querySelector('#js-reset').addEventListener('click', () => {
+        clearInterval(timerId);
         clearInterval(timerStep);
         for (let figure of allDigits) {
             figure.enumerationItems(setNumbers['0']);

@@ -183,10 +183,6 @@ class Display {
         command.setAttribute('data-command', 'start');
     }
 
-    hideDisplay() {
-        document.querySelector('#js-display-wrp').style.display = 'none';
-    }
-
     reset() {
         this.firstMinutes = 0;
         this.twoMinutes = 0;
