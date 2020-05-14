@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const display = new Display();
     let timerId;
     let timerStep;
-    let setEvent = ['mousedown', 'mouseout', 'click'];
+    let setEvent = ['mousedown', 'mouseup', 'mouseout', 'click'];
     const startStop = document.querySelector('#js-start-stop');
     let btnBlock = false;
 
@@ -26,6 +26,11 @@ window.addEventListener('DOMContentLoaded', function () {
         const minuteMinus = document.querySelector('#js-minute-minus');
         if (el === 'mouseout') {
             minuteMinus.addEventListener('mouseout', () => {
+                clearInterval(timerId);
+            });
+        }
+        if (el === 'mouseup') {
+            minuteMinus.addEventListener('mouseup', () => {
                 clearInterval(timerId);
             });
         }
@@ -58,6 +63,11 @@ window.addEventListener('DOMContentLoaded', function () {
                 clearInterval(timerId);
             });
         }
+        if (el === 'mouseup') {
+            minutePlus.addEventListener('mouseup', () => {
+                clearInterval(timerId);
+            });
+        }
         if (el === 'click') {
             minutePlus.addEventListener('click', () => {
                 clearInterval(timerId);
@@ -87,6 +97,11 @@ window.addEventListener('DOMContentLoaded', function () {
                 clearInterval(timerId);
             });
         }
+        if (el === 'mouseup') {
+            secondMinus.addEventListener('mouseup', () => {
+                clearInterval(timerId);
+            });
+        }
         if (el === 'click') {
             secondMinus.addEventListener('click', () => {
                 clearInterval(timerId);
@@ -113,6 +128,11 @@ window.addEventListener('DOMContentLoaded', function () {
         const secondPlus = document.querySelector('#js-second-plus');
         if (el === 'mouseout') {
             secondPlus.addEventListener('mouseout', () => {
+                clearInterval(timerId);
+            });
+        }
+        if (el === 'mouseup') {
+            secondPlus.addEventListener('mouseup', () => {
                 clearInterval(timerId);
             });
         }
